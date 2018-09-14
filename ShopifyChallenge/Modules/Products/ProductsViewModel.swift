@@ -7,3 +7,14 @@
 //
 
 import Foundation
+import UIKit
+
+class ProductsViewModel
+{
+    var products: [Product]
+    
+    init(products: [Product])
+    {
+        self.products = products
+    }
+}

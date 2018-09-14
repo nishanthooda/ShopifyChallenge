@@ -1,5 +1,5 @@
 //
-//  ShopifyConstants.swift
+//  TagsConstants.swift
 //  ShopifyChallenge
 //
 //  Created by Nishant Hooda on 2018-09-12.
@@ -7,10 +7,11 @@
 //
 
 import Foundation
+import UIKit
 
-struct ShopifyConstants
+struct TagsConstants
 {
-    static let estimatedRowHeight = 50
+    static let estimatedRowHeight: CGFloat = 50
     static let dataURL = "https://shopicruit.myshopify.com/admin/products.json?page=1&access_token=c32313df0d0ef512ca64d5b336a0d7c6"
     static let tagSplitter = ", "
     

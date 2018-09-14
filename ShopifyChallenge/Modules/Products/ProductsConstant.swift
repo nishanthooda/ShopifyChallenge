@@ -7,3 +7,9 @@
 //
 
 import Foundation
+import UIKit
+
+struct ProductsConstant
+{
+    static let estimatedCellHeight: CGFloat = 50
+}

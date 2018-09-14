@@ -1,6 +1,6 @@
 //
-//  ShopifyViewModel.swift
-//  ShopifyChallenge
+//  TagsViewModel.swift
+//  TagsChallenge
 //
 //  Created by Nishant Hooda on 2018-09-12.
 //  Copyright © 2018 Nishant Hooda. All rights reserved.
@@ -25,7 +25,7 @@ struct Variant
     let weightUnit: String
 }
 
-class ShopifyViewModel
+class TagsViewModel
 {
     var productsForTag: [String:[Product]] = [:]
     
@@ -33,7 +33,7 @@ class ShopifyViewModel
     
     func fetchData(completion: @escaping (Bool) -> Void)
     {
-        _ = ShopifyRequest.shared.getRequest(urlString: ShopifyConstants.dataURL, callback: { (data, error) in
+        _ = ShopifyRequest.shared.getRequest(urlString: TagsConstants.dataURL, callback: { (data, error) in
             
             guard error == nil else
             {
@@ -64,34 +64,34 @@ class ShopifyViewModel
     
     func parseData(from json: [String:AnyObject])
     {
-        guard let products = json[ShopifyConstants.JSONKeys.products] as? [AnyObject] else { return }
+        guard let products = json[TagsConstants.JSONKeys.products] as? [AnyObject] else { return }
         
         //storing all the tags from different products, including duplicates
         var allTags: [String] = []
         
         for product in products
         {
-            guard let tags = product[ShopifyConstants.JSONKeys.tags] as? String else { continue }
+            guard let tags = product[TagsConstants.JSONKeys.tags] as? String else { continue }
             
-            let tagsArray = tags.components(separatedBy: ShopifyConstants.tagSplitter)
+            let tagsArray = tags.components(separatedBy: TagsConstants.tagSplitter)
             allTags += tagsArray
             
-            guard let title = product[ShopifyConstants.JSONKeys.title] as? String else { continue }
+            guard let title = product[TagsConstants.JSONKeys.title] as? String else { continue }
             
-            guard let image = product[ShopifyConstants.JSONKeys.image] as? [String:AnyObject] else { continue }
-            guard let imageURL = image[ShopifyConstants.JSONKeys.source] as? String else { continue }
+            guard let image = product[TagsConstants.JSONKeys.image] as? [String:AnyObject] else { continue }
+            guard let imageURL = image[TagsConstants.JSONKeys.source] as? String else { continue }
             
-            guard let variants = product[ShopifyConstants.JSONKeys.variants] as? [AnyObject] else { continue }
+            guard let variants = product[TagsConstants.JSONKeys.variants] as? [AnyObject] else { continue }
             
             var productVariants: [Variant] = []
             
             for variant in variants
             {
-                guard let variantTitle = variant[ShopifyConstants.JSONKeys.title] as? String else { continue }
-                guard let price = variant[ShopifyConstants.JSONKeys.price] as? String else { continue }
-                guard let inventory = variant[ShopifyConstants.JSONKeys.inventory] as? Int else { continue }
-                guard let weight = variant[ShopifyConstants.JSONKeys.weight] as? Double else { continue }
-                guard let weightUnit = variant[ShopifyConstants.JSONKeys.weightUnit] as? String else { continue }
+                guard let variantTitle = variant[TagsConstants.JSONKeys.title] as? String else { continue }
+                guard let price = variant[TagsConstants.JSONKeys.price] as? String else { continue }
+                guard let inventory = variant[TagsConstants.JSONKeys.inventory] as? Int else { continue }
+                guard let weight = variant[TagsConstants.JSONKeys.weight] as? Double else { continue }
+                guard let weightUnit = variant[TagsConstants.JSONKeys.weightUnit] as? String else { continue }
                 
                 productVariants.append(Variant(inventory: inventory, price: price, title: variantTitle, weight: weight, weightUnit: weightUnit))
             }

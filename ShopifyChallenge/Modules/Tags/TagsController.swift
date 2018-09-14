@@ -15,7 +15,6 @@ class TagsController: UIViewController
     private lazy var tableView: UITableView = {
         let tableview = UITableView(frame: CGRect.zero, style: .plain)
         tableview.translatesAutoresizingMaskIntoConstraints = false
-        tableview.separatorStyle = .none
         tableview.dataSource = self
         tableview.delegate = self
         tableview.backgroundColor = .clear
@@ -28,6 +27,7 @@ class TagsController: UIViewController
         super.init(nibName: nil, bundle: nil)
         
         self.tableView.register(TagsCell.self, forCellReuseIdentifier: TagsCell.identifer)
+        self.navigationController?.viewControllers = [self, ProductsController(products: [])]
     }
     
     required init?(coder aDecoder: NSCoder)
@@ -43,7 +43,9 @@ class TagsController: UIViewController
             
             if success
             {
-                self.setupUI()
+                DispatchQueue.main.async {
+                    self.setupUI()
+                }
             }
             else
             {
@@ -54,7 +56,9 @@ class TagsController: UIViewController
     
     private func setupUI()
     {
-        self.view.backgroundColor = .red
+        self.view.backgroundColor = .white
+        self.title = "Tags"
+        
         self.view.addSubview(self.tableView)
         
         self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
@@ -67,7 +71,6 @@ class TagsController: UIViewController
     {
         
     }
-
 }
 
 extension TagsController: UITableViewDataSource
@@ -96,6 +99,16 @@ extension TagsController: UITableViewDelegate
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
         return UITableViewAutomaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
+        guard let products = self.viewModel.productsForTag[self.viewModel.tags[indexPath.row]] else { return }
+        let productsVC = ProductsController(products: products)
+        
+        DispatchQueue.main.async {
+            self.navigationController?.pushViewController(productsVC, animated: true)
+        }
     }
 }
 
