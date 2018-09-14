@@ -20,7 +20,7 @@ class ProductsController: UIViewController
         tableview.delegate = self
         tableview.backgroundColor = .clear
         tableview.estimatedRowHeight = ProductsConstant.estimatedCellHeight
-        
+        tableview.estimatedSectionHeaderHeight = ProductsConstant.estimatedCellHeight
         return tableview
     }()
     
@@ -30,7 +30,8 @@ class ProductsController: UIViewController
         
         super.init(nibName: nil, bundle: nil)
         
-        self.tableView.register(ProductsCell.self, forCellReuseIdentifier: ProductsCell.identifer)
+        self.tableView.register(VariantCell.self, forCellReuseIdentifier: VariantCell.identifer)
+        self.tableView.register(ProductHeaderCell.self, forHeaderFooterViewReuseIdentifier: ProductHeaderCell.identifer)
     }
     
     required init?(coder aDecoder: NSCoder)
@@ -63,29 +64,47 @@ extension ProductsController: UITableViewDataSource
 {
     func numberOfSections(in tableView: UITableView) -> Int
     {
-        return 1
+        return self.viewModel.products.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return self.viewModel.products.count
+        return self.viewModel.products[section].variants.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let product = self.viewModel.products[indexPath.row]
+        let variant = self.viewModel.products[indexPath.section].variants[indexPath.row]
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ProductsCell.identifer, for: indexPath) as? ProductsCell else { return UITableViewCell() }
-        cell.titleLabel.text = product.title
-        cell.codeLabel.text = product.variants.first?.price
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: VariantCell.identifer, for: indexPath) as? VariantCell else { return UITableViewCell() }
+        cell.titleLabel.text = variant.title
+        cell.codeLabel.text = variant.price
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
+    {
+        let product = self.viewModel.products[section]
+        
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: ProductHeaderCell.identifer) as? ProductHeaderCell else { return UITableViewHeaderFooterView() }
+        
+        header.titleLabel.text = product.title
+        header.codeLabel.text = "HI"
+        header.productImage.loadImage(withURL: product.imageURL)
+        
+        return header
     }
 }
 
 extension ProductsController: UITableViewDelegate
 {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        return UITableViewAutomaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
     {
         return UITableViewAutomaticDimension
     }
