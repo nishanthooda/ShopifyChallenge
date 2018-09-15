@@ -12,9 +12,9 @@ import UIKit
 class TagsCell: UITableViewCell
 {
     static let identifer = "tagsCell"
+    private let arrowImageHeight: CGFloat = 25
     
     lazy var titleLabel = UITableViewCell.generateLabel(font: ShopifyTheme.font.m, color: ShopifyTheme.color.text, text: "")
-    lazy var codeLabel = UITableViewCell.generateLabel(font: ShopifyTheme.font.m, color: ShopifyTheme.color.text, text: "")
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?)
     {
@@ -31,17 +31,22 @@ class TagsCell: UITableViewCell
     
     private func setupUI()
     {
-        self.selectionStyle = .none
-        
-//        self.contentView.addSubview(self.codeLabel)
-//        self.codeLabel.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
-//        self.codeLabel.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -ShopifyTheme.Spacing.l).isActive = true
-        
         self.contentView.addSubview(self.titleLabel)
         self.titleLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: ShopifyTheme.Spacing.m).isActive = true
         self.titleLabel.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -ShopifyTheme.Spacing.m).isActive = true
         self.titleLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: ShopifyTheme.Spacing.m).isActive = true
         self.titleLabel.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -ShopifyTheme.Spacing.m).isActive = true
+        
+        let arrowImageView = UIImageView()
+        arrowImageView.translatesAutoresizingMaskIntoConstraints = false
+        arrowImageView.image = UIImage(named: "arrowImage")!.withRenderingMode(.alwaysTemplate)
+        arrowImageView.tintColor = UIColor.lightGray
+        
+        self.contentView.addSubview(arrowImageView)
+        arrowImageView.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -ShopifyTheme.Spacing.s).isActive = true
+        arrowImageView.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
+        arrowImageView.heightAnchor.constraint(equalToConstant: self.arrowImageHeight).isActive = true
+        arrowImageView.widthAnchor.constraint(equalToConstant: self.arrowImageHeight).isActive = true
     }
 }
 

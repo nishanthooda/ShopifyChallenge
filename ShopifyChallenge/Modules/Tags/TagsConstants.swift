@@ -14,6 +14,7 @@ struct TagsConstants
     static let estimatedRowHeight: CGFloat = 50
     static let dataURL = "https://shopicruit.myshopify.com/admin/products.json?page=1&access_token=c32313df0d0ef512ca64d5b336a0d7c6"
     static let tagSplitter = ", "
+    static let title = "Tags"
     
     struct JSONKeys
     {

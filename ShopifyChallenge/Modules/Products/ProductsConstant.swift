@@ -11,5 +11,8 @@ import UIKit
 
 struct ProductsConstant
 {
+    static let dollarSign = "$"
     static let estimatedCellHeight: CGFloat = 50
+    static let inventory = "Inventory: "
+    static let title = "Products"
 }

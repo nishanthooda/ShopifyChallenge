@@ -57,7 +57,7 @@ class TagsController: UIViewController
     private func setupUI()
     {
         self.view.backgroundColor = .white
-        self.title = "Tags"
+        self.navigationItem.titleView = NavTitleView(title: TagsConstants.title)
         
         self.view.addSubview(self.tableView)
         

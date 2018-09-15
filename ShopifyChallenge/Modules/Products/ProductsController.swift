@@ -49,7 +49,7 @@ class ProductsController: UIViewController
     private func setupUI()
     {
         self.view.backgroundColor = .white
-        self.title = "Products"
+        self.navigationItem.titleView = NavTitleView(title: ProductsConstant.title)
         
         self.view.addSubview(self.tableView)
         
@@ -78,7 +78,8 @@ extension ProductsController: UITableViewDataSource
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: VariantCell.identifer, for: indexPath) as? VariantCell else { return UITableViewCell() }
         cell.titleLabel.text = variant.title
-        cell.codeLabel.text = variant.price
+        cell.priceLabel.text = ProductsConstant.dollarSign + variant.price
+        cell.inventoryLabel.text = ProductsConstant.inventory + String(variant.inventory)
         
         return cell
     }
@@ -90,7 +91,6 @@ extension ProductsController: UITableViewDataSource
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: ProductHeaderCell.identifer) as? ProductHeaderCell else { return UITableViewHeaderFooterView() }
         
         header.titleLabel.text = product.title
-        header.codeLabel.text = "HI"
         header.productImage.loadImage(withURL: product.imageURL)
         
         return header
