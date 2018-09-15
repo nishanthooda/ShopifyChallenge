@@ -54,7 +54,7 @@ class ProductsController: UIViewController
         self.view.addSubview(self.tableView)
         
         self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-        self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        self.tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         self.tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         self.tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
     }
