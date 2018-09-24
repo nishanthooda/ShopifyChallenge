@@ -118,6 +118,4 @@ class TagsViewModel
             $0.localizedStandardCompare($1) == .orderedAscending
         }
     }
-    
-    
 }

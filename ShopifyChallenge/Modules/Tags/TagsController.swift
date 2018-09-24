@@ -69,7 +69,7 @@ class TagsController: UIViewController
     
     private func setupNoInternetUI()
     {
-        
+        //Setup UI for failed requests
     }
 }
 
@@ -111,6 +111,3 @@ extension TagsController: UITableViewDelegate
         }
     }
 }
-
-
-
